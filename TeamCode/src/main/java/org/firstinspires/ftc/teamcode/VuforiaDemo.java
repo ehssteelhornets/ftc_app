@@ -15,23 +15,23 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /*
- * This OpMode was written for the Vuforia Basics video. This demonstrates basic principles of
- * using Vuforia in FTC.
+ * This OpMode was written for the VuforiaDemo Basics video. This demonstrates basic principles of
+ * using VuforiaDemo in FTC.
  */
 @Autonomous(name = "Vuforia")
-public class Vuforia extends LinearOpMode
+public class VuforiaDemo extends LinearOpMode
 {
     // Variables to be used for later
-    VuforiaLocalizer vuforiaLocalizer;
-    VuforiaLocalizer.Parameters parameters;
-    VuforiaTrackables visionTargets;
-    VuforiaTrackable target;
-    VuforiaTrackableDefaultListener listener;
+    private VuforiaLocalizer vuforiaLocalizer;
+    private VuforiaLocalizer.Parameters parameters;
+    private VuforiaTrackables visionTargets;
+    private VuforiaTrackable target;
+    private VuforiaTrackableDefaultListener listener;
 
-    OpenGLMatrix lastKnownLocation;
-    OpenGLMatrix phoneLocation;
+    private OpenGLMatrix lastKnownLocation;
+    private OpenGLMatrix phoneLocation;
 
-    public static final String VUFORIA_KEY = ""; // Insert your own key here
+    private static final String VUFORIA_KEY = ""; // Insert your own key here
 
     public void runOpMode() throws InterruptedException
     {
@@ -65,7 +65,7 @@ public class Vuforia extends LinearOpMode
         }
     }
 
-    public void setupVuforia()
+    private void setupVuforia()
     {
         // Setup parameters to create localizer
         parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
@@ -92,7 +92,7 @@ public class Vuforia extends LinearOpMode
 
     // Creates a matrix for determining the locations and orientations of objects
     // Units are millimeters for x, y, and z, and degrees for u, v, and w
-    public OpenGLMatrix createMatrix(float x, float y, float z, float u, float v, float w)
+    private OpenGLMatrix createMatrix(float x, float y, float z, float u, float v, float w)
     {
         return OpenGLMatrix.translation(x, y, z).
                 multiplied(Orientation.getRotationMatrix(
@@ -100,7 +100,7 @@ public class Vuforia extends LinearOpMode
     }
 
     // Formats a matrix into a readable string
-    public String formatMatrix(OpenGLMatrix matrix)
+    private String formatMatrix(OpenGLMatrix matrix)
     {
         return matrix.formatAsTransform();
     }
