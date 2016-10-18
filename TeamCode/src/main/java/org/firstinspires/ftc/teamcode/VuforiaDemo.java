@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.vuforia.HINT;
+import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -33,6 +35,10 @@ public class VuforiaDemo extends LinearOpMode
 
     private static final String VUFORIA_KEY = ""; // Insert your own key here
 
+    private float robotX = 0;
+    private float robotY = 0;
+    private float robotAngle = 0;
+
     public void runOpMode() throws InterruptedException
     {
         setupVuforia();
@@ -55,6 +61,12 @@ public class VuforiaDemo extends LinearOpMode
             if(latestLocation != null)
                 lastKnownLocation = latestLocation;
 
+            float[] coordinates = lastKnownLocation.getTranslation().getData();
+
+            robotX = coordinates[0];
+            robotY = coordinates[1];
+            robotAngle = Orientation.getOrientation(lastKnownLocation, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
             // Send information about whether the target is visible, and where the robot is
             telemetry.addData("Tracking " + target.getName(), listener.isVisible());
             telemetry.addData("Last Known Location", formatMatrix(lastKnownLocation));
@@ -68,14 +80,16 @@ public class VuforiaDemo extends LinearOpMode
     private void setupVuforia()
     {
         // Setup parameters to create localizer
-        parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
+        parameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId); // To remove the camera view from the screen, remove the R.id.cameraMonitorViewId
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.useExtendedTracking = false;
         vuforiaLocalizer = ClassFactory.createVuforiaLocalizer(parameters);
 
         // These are the vision targets that we want to use
         // The string needs to be the name of the appropriate .xml file in the assets folder
         visionTargets = vuforiaLocalizer.loadTrackablesFromAsset("FTC_2016-17");
+        Vuforia.setHint(HINT.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 4);
 
         // Setup the target to be tracked
         target = visionTargets.get(0); // 0 corresponds to the wheels target
