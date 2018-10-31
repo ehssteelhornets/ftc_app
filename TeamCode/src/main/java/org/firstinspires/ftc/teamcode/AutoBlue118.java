@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
-import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+//import com.disnodeteam.dogecv.DogeCV;
+//import com.disnodeteam.dogecv.CameraViewDisplay;
+//import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -29,10 +29,10 @@ public class AutoBlue118 extends LinearOpMode {
     //Initializes the robot
         robot.init(hardwareMap);
         //DogeCV init
-        GoldAlignDetector goldAlignDetector = new GoldAlignDetector();
-        goldAlignDetector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        goldAlignDetector.useDefaults();
-        goldAlignDetector.enable();
+  //      GoldAlignDetector goldAlignDetector = new GoldAlignDetector();
+    //    goldAlignDetector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
+      //  goldAlignDetector.useDefaults();
+        //goldAlignDetector.enable();
         // get a reference to the color sensor.
         sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         //Reset our encoders
@@ -58,11 +58,11 @@ public class AutoBlue118 extends LinearOpMode {
                         //Strafe left
                         //Drive 2
 
-        telemetry.addData("IsAligned" , goldAlignDetector.getAligned()); // Is the bot aligned with the gold mineral
-        telemetry.addData("X Pos" , goldAlignDetector.getXPosition()); // Gold X pos.
+        //telemetry.addData("IsAligned" , goldAlignDetector.getAligned()); // Is the bot aligned with the gold mineral
+        //telemetry.addData("X Pos" , goldAlignDetector.getXPosition()); // Gold X pos.
 
 
-        if(!goldAlignDetector.getAligned())
+        /**if(!goldAlignDetector.getAligned())
         {
             telemetry.addLine("NOOOOO");
             telemetry.update();
@@ -73,6 +73,7 @@ public class AutoBlue118 extends LinearOpMode {
             telemetry.addLine("YASSSS");
             telemetry.update();
         }
+         **/
             //Drive to depot
         encoderDrive(1,20,20,5.0 );
         //Drop Marker
